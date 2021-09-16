@@ -1,15 +1,19 @@
 import {Controller, Value, ViewProps} from '@tweakpane/core';
 
+import {ImageResolvable} from './model';
+import {cloneImage, createPlaceholderImage, loadImage} from './utils';
 import {PluginView} from './view';
 
 interface Config {
-	value: Value<HTMLImageElement>;
+	value: Value<ImageResolvable>;
+	acceptUrl: boolean;
+	imageFit: 'contain' | 'cover';
 	extensions: string[];
 	viewProps: ViewProps;
 }
 
 export class PluginController implements Controller<PluginView> {
-	public readonly value: Value<HTMLImageElement>;
+	public readonly value: Value<ImageResolvable>;
 	public readonly view: PluginView;
 	public readonly viewProps: ViewProps;
 
@@ -18,9 +22,10 @@ export class PluginController implements Controller<PluginView> {
 		this.viewProps = config.viewProps;
 
 		this.view = new PluginView(doc, {
-			value: this.value,
 			viewProps: this.viewProps,
+			acceptUrl: config.acceptUrl,
 			extensions: config.extensions,
+			imageFit: config.imageFit,
 		});
 
 		this.onFile_ = this.onFile_.bind(this);
@@ -29,9 +34,12 @@ export class PluginController implements Controller<PluginView> {
 		this.viewProps.handleDispose(() => {
 			this.view.input.removeEventListener('change', this.onFile_);
 		});
+
+		this.handleImage(this.value.rawValue);
 	}
 
 	private onFile_(event: Event): void {
+		console.debug('Changing file via controller');
 		const files = (event?.target as HTMLInputElement).files;
 		if (!files || !files.length) return;
 
@@ -43,5 +51,26 @@ export class PluginController implements Controller<PluginView> {
 			this.value.rawValue = image;
 		};
 		image.addEventListener('load', onLoad);
+	}
+
+	private onDrop_() {
+		console.log('TODOs');
+	}
+
+	private handleImage(image: ImageResolvable) {
+		if (image instanceof HTMLImageElement) {
+			cloneImage(image).then((clone) => {
+				this.view.changeImage(clone.src);
+			});
+		} else if (typeof image === 'string') {
+			try {
+				new URL(image);
+				loadImage(image).then((image_) => {
+					this.view.changeImage(image_.src);
+				});
+			} catch (_) {
+				initialValue = exValue;
+			}
+		}
 	}
 }

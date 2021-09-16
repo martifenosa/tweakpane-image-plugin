@@ -23,9 +23,16 @@
 	&_image {
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
 		position: absolute;
 		pointer-events: none;
 		border: 0;
+	}
+
+	&_image_contain {
+		object-fit: contain;
+	}
+
+	&_image_cover {
+		object-fit: cover;
 	}
 }
