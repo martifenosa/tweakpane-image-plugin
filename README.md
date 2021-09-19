@@ -38,7 +38,7 @@ pane.registerPlugin(TweakpaneImagePlugin);
 const params = {
   image: new Image(),
   placeholder: 'placeholder',
-	url: 'https://images.unsplash.com/photo-1631875182291-17e8310183ed?q=80&w=500'
+  url: 'https://images.unsplash.com/photo-1631875182291-17e8310183ed?q=80&w=500'
 };
 
 pane.addInput(params, 'image', {
