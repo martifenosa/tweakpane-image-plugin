@@ -21,8 +21,8 @@ You can use this plugin using these parameters:
 ```ts
 pane.addInput(params, 'url', {
   view: 'input-image';
-	imageFit?: 'contain' | 'cover';
-	extensions?: string[];
+  imageFit?: 'contain' | 'cover';
+  extensions?: string[];
 })
 ```
 
