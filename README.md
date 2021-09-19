@@ -1,5 +1,7 @@
 # Tweakpane image plugin
 Image input plugin for [Tweakpane][tweakpane].
+![image](https://user-images.githubusercontent.com/22124518/133916776-a5340b89-025d-44a2-bdc3-87bd11b468db.png)
+
 
 Check out the [demo][demo].
 
