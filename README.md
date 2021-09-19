@@ -1,6 +1,13 @@
 # Tweakpane image plugin
 Image input plugin for [Tweakpane][tweakpane].
 
+Check out the [demo][demo].
+
+## Features
+- Accepts images and URLs
+- Image input
+- Drag and drop
+- Placeholders
 
 ## Installation
 You can install [this package][npm-link] via NPM:
@@ -50,3 +57,4 @@ pane.addInput(params, 'url', {
 
 [tweakpane]: https://github.com/cocopon/tweakpane/
 [npm-link]: https://www.npmjs.com/package/tweakpane-image-plugin
+[demo]: https://tweakpane-image-plugin.netlify.app/
