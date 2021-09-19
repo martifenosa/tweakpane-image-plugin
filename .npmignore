@@ -1,0 +1,9 @@
+src
+node_modules
+scripts
+test
+.editorconfig
+.eslintrc.js
+.eslintignore
+.prettierrc.js
+rollup.config.js

@@ -1,10 +1,11 @@
 {
   "name": "tweakpane-image-plugin",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "description": "Image input plugin for Tweakpane",
   "main": "dist/tweakpane-image-plugin.js",
-  "author": "Florian Morel",
+  "author": "Florian Morel, Matheus Dias <methidezeeni@gmail.com>",
   "license": "MIT",
+  "keywords": ["tweakpane", "tweakpane-plugin", "plugin", "image-input"],
   "files": [
     "dist"
   ],
@@ -12,7 +13,7 @@
     "prepare": "run-s clean build",
     "prepublishOnly": "npm test",
     "start": "npm run watch",
-    "test": "eslint --ext .ts 'src/**/*.ts'",
+    "test": "eslint --ext .ts \"src/**/*.ts\"",
     "assets": "run-s clean build assets:version assets:zip",
     "assets:version": "node scripts/assets-append-version.js",
     "assets:zip": "zip -x '*types*' -j -r $(cat package.json | npx json name)-$(cat package.json | npx json version).zip dist",

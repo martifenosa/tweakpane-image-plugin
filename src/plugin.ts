@@ -11,7 +11,6 @@ import {ImageResolvable} from './model';
 
 export interface PluginInputParams extends BaseInputParams {
 	view: 'input-image';
-	acceptUrl?: boolean;
 	imageFit?: 'contain' | 'cover';
 	extensions?: string[];
 }
@@ -54,7 +53,11 @@ export const TweakpaneImagePlugin: InputBindingPlugin<
 	binding: {
 		reader(_args) {
 			return (exValue: unknown): ImageResolvable => {
-				return exValue instanceof HTMLImageElement ? exValue : 'placeholder';
+				if (exValue instanceof HTMLImageElement) {
+					return exValue.src === '' ? 'placeholder' : exValue.src;
+				} else {
+					return typeof exValue === 'string' ? exValue : 'placeholder';
+				}
 			};
 		},
 
@@ -68,7 +71,6 @@ export const TweakpaneImagePlugin: InputBindingPlugin<
 	controller(args) {
 		return new PluginController(args.document, {
 			value: args.value,
-			acceptUrl: args.params.acceptUrl ?? false,
 			imageFit: args.params.imageFit ?? 'cover',
 			viewProps: args.viewProps,
 			extensions: args.params.extensions ?? DEFAULT_EXTENSIONS,

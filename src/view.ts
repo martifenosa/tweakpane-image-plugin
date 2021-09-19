@@ -2,7 +2,6 @@ import {ClassName, View, ViewProps} from '@tweakpane/core';
 
 interface Config {
 	viewProps: ViewProps;
-	acceptUrl: boolean;
 	imageFit: 'contain' | 'cover';
 	extensions: string[];
 }
@@ -28,6 +27,9 @@ export class PluginView implements View {
 		this.image_ = doc.createElement('img');
 		this.image_.classList.add(className('image'));
 		this.image_.classList.add(className(`image_${config.imageFit}`));
+
+		this.element.classList.add(className('area_root'));
+
 		this.element.appendChild(this.image_);
 	}
 
@@ -35,7 +37,12 @@ export class PluginView implements View {
 		this.image_.src = src;
 	}
 
-	private onValueChange_(value: string) {
-		this.changeImage(value);
+	changeDraggingState(state: boolean) {
+		const el = this.element;
+		if (state) {
+			el?.classList.add(className('area_dragging'));
+		} else {
+			el?.classList.remove(className('area_dragging'));
+		}
 	}
 }

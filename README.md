@@ -3,32 +3,50 @@ Image input plugin for [Tweakpane][tweakpane].
 
 
 ## Installation
+You can install [this package][npm-link] via NPM:
 ```sh
-npm i ayamflow/tweakpane-image-plugin
+npm i tweakpane-image-plugin
 ```
 
 ## Usage
+
+You can use this plugin using these parameters:
+```ts
+pane.addInput(params, 'url', {
+  view: 'input-image';
+	imageFit?: 'contain' | 'cover';
+	extensions?: string[];
+})
+```
+
+## Example
+
 ```js
 import {Pane} from 'tweakpane';
-import * as ImagePlugin from 'tweakpane-image-plugin';
+import * as TweakpaneImagePlugin from 'tweakpane-image-plugin';
 
 const pane = new Pane();
-pane.registerPlugin(ImagePlugin);
+pane.registerPlugin(TweakpaneImagePlugin);
 
 const params = {
   image: new Image(),
+  placeholder: 'placeholder',
+	url: 'https://images.unsplash.com/photo-1631875182291-17e8310183ed?q=80&w=500'
 };
 
 pane.addInput(params, 'image', {
   extensions: '.jpg, .gif',
-}).on('change', (ev) => {
-  console.log(ev.value);
-});
+})
+
+pane.addInput(params, 'placeholder', {
+  view: 'input-image'
+})
+
+pane.addInput(params, 'url', {
+  view: 'input-image',
+  imageFit: 'contain',
+})
 ```
 
 [tweakpane]: https://github.com/cocopon/tweakpane/
-
-
-## Possible roadmap 
-- drag & drop
-- non-image images (i.e. compressed textures for WebGL)
+[npm-link]: https://www.npmjs.com/package/tweakpane-image-plugin

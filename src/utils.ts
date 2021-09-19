@@ -1,4 +1,4 @@
-export function createPlaceholderImage(): HTMLImageElement {
+export function createPlaceholderImage(): Promise<HTMLImageElement> {
 	const canvas = document.createElement('canvas');
 	canvas.width = 128;
 	canvas.height = 64;
@@ -13,19 +13,20 @@ export function createPlaceholderImage(): HTMLImageElement {
 	ctx.textBaseline = 'middle';
 	ctx.fillText('No image', canvas.width * 0.5, canvas.height * 0.5);
 
-	const image = new Image();
-
-	canvas.toBlob((blob) => {
-		image.src = URL.createObjectURL(blob);
-		image.onload = () => {};
+	return new Promise((resolve) => {
+		canvas.toBlob((blob) => {
+			const image = new Image();
+			image.src = URL.createObjectURL(blob);
+			image.onload = () => {
+				resolve(image);
+			};
+		});
 	});
-
-	console.log(image);
-	return image;
 }
 
 export async function loadImage(src: string): Promise<HTMLImageElement> {
 	const image = new Image();
+	image.crossOrigin = 'anonymous';
 	return new Promise((resolve) => {
 		image.src = src;
 		image.onload = () => {
