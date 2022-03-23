@@ -12,17 +12,24 @@ export class PluginView implements View {
 	public readonly element: HTMLElement;
 	public readonly input: HTMLElement;
 	private image_: HTMLImageElement;
+	// private checkbox_: HTMLElement;
 
 	constructor(doc: Document, config: Config) {
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
-		config.viewProps.bindClassModifiers(this.element);
+		config.viewProps.bindClassModifiers(this.element);			
 
 		this.input = doc.createElement('input');
 		this.input.classList.add(className('input'));
 		this.input.setAttribute('type', 'file');
 		this.input.setAttribute('accept', config.extensions.join(','));
 		this.element.appendChild(this.input);
+
+		// this.checkbox_ = doc.createElement('input');
+		// this.checkbox_.setAttribute('type', 'checkbox');
+		// this.checkbox_.classList.add(className('checkbox'));
+
+		// this.element.appendChild(this.checkbox_);
 
 		this.image_ = doc.createElement('img');
 		this.image_.classList.add(className('image'));
