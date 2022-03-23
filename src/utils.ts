@@ -1,27 +1,25 @@
 export function createPlaceholderImage(): Promise<HTMLImageElement> {
-	const canvas = document.createElement('canvas');
-	canvas.width = 128;
-	canvas.height = 64;
+	const svg = `
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 64"> 
+			<style>
+					.svg__text {
+						font-family: 'Arial';
+						fill: white;
+						font-size: 12px;
+					}
+			</style>
+			<rect x="0" y="0" width="128" height="64" fill="#272727"/>
+			<text x="50%" y="55%" text-anchor="middle" class="svg__text">No image</text>
+		</svg>
+	`;
 
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	const ctx = canvas.getContext('2d')!;
-	ctx.fillStyle = '#222';
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	ctx.fillStyle = '#ddd';
-	ctx.font = 'monospaced';
-	ctx.textAlign = 'center';
-	ctx.textBaseline = 'middle';
-	ctx.fillText('No image', canvas.width * 0.5, canvas.height * 0.5);
-
-	return new Promise((resolve, reject) => {
-		canvas.toBlob((blob) => {
-			if(!blob) reject();
-			const image = new Image();		
-			image.src = URL.createObjectURL(blob as Blob);
-			image.onload = () => {
-				resolve(image);
-			};
-		});
+	return new Promise((resolve) => {
+		const blob = new Blob([svg], { type: 'image/svg+xml'});
+		const image = new Image();
+		image.src = URL.createObjectURL(blob as Blob);
+		image.onload = () => {
+			resolve(image);
+		};
 	});
 }
 
