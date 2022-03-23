@@ -25,12 +25,14 @@
 
 		pane.registerPlugin(TweakpaneImagePlugin);
 
+		/*
 		pane.addInput(params, 'base64', {
 			view: 'input-image'
 		}).on('change', (ev) => {
 			console.log('base64 image value changed to ', ev.value);
 			changeAllImages()
 		});
+		*/
 
 		pane.addInput(params, 'placeholder', {
 			view: 'input-image'
@@ -39,6 +41,7 @@
 			changeAllImages()
 		});
 
+		/*
 		pane.addInput(params, 'url', {
 			view: 'input-image',
 			imageFit: 'contain',
@@ -47,6 +50,7 @@
 			console.log('URL image value changed to ', ev.value);
 			changeAllImages()
 		});
+		*/
 
 		function changeImage (id, img) {
 			if (img && img.src) {
@@ -55,9 +59,9 @@
 		}
 
 		function changeAllImages() {
-			changeImage('base64', params.base64)
+			// changeImage('base64', params.base64)
 			changeImage('placeholder', params.placeholder)
-			changeImage('url', params.url)
+			// changeImage('url', params.url)
 		}
 
 		window.pane = pane;
