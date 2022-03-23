@@ -13,10 +13,11 @@ export function createPlaceholderImage(): Promise<HTMLImageElement> {
 	ctx.textBaseline = 'middle';
 	ctx.fillText('No image', canvas.width * 0.5, canvas.height * 0.5);
 
-	return new Promise((resolve) => {
+	return new Promise((resolve, reject) => {
 		canvas.toBlob((blob) => {
-			const image = new Image();
-			image.src = URL.createObjectURL(blob);
+			if(!blob) reject();
+			const image = new Image();		
+			image.src = URL.createObjectURL(blob as Blob);
 			image.onload = () => {
 				resolve(image);
 			};
@@ -47,9 +48,10 @@ export function cloneImage(
 	ctx.drawImage(source, 0, 0);
 
 	const image = new Image();
-	return new Promise((resolve) => {
+	return new Promise((resolve, reject) => {
 		canvas.toBlob((blob) => {
-			image.src = URL.createObjectURL(blob);
+			if(!blob) reject();
+			image.src = URL.createObjectURL(blob as Blob);
 			image.onload = () => {
 				resolve(image);
 			};
